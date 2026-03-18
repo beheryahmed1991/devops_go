@@ -23,7 +23,7 @@ services:
       - backend
     networks:
       - app_network
-
+#internal network for the services to communicate with each other
 networks:
   app_network:
     driver: bridge
