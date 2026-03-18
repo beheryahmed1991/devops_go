@@ -1,0 +1,5 @@
+services:
+  backend:
+    build: ./backend
+    container_name: app_backend
+   
