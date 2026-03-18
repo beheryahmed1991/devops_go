@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY go.mod ./
 COPY main.go ./
-
+# not running as root user, but as "appuser"
 RUN go build -o backend-service .
 
 FROM alpine:3.22
