@@ -11,8 +11,13 @@ FROM alpine:3.22
 
 WORKDIR /app
 
-COPY --from=builder /app/backend-service /backend-service
+#run as non-root user "newuser"
+RUN adduser -D  newuser
+
+COPY --from=builder /app/backend-service ./backend-service
 #listen on port 8080 "internal" to the container, not exposed !!
 EXPOSE 8080
 
-CMD ["/backend-service"]
+USER newuser
+
+CMD ["./backend-service"]
