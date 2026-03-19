@@ -23,8 +23,13 @@ func main() {
 		}
 	})
 
+	// this endpoint is used for health checks, it should return "OK" with status code 200
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/plain")
 		w.WriteHeader(http.StatusOK)
+		if _, err := io.WriteString(w, "OK"); err != nil {
+			log.Printf("write 'OK': %v", err)
+		}
 	})
 
 	server := &http.Server{

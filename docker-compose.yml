@@ -2,16 +2,23 @@ services:
   backend:
     build: ./backend
 
-    #container for the backend, service name"app_backend"
+    #container for the backend, container name"app_backend"
     container_name: ${BACKEND_NAME}
     networks:
       - app_network
+
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
    
 
   nginx:
     image: nginx:alpine
 
-    #container for the nginx, server name"app_nginx"
+    #container for the nginx, container name"app_nginx"
     container_name: ${NGINX_NAME}
     ports:
       - "80:80"
