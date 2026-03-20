@@ -163,3 +163,9 @@ docker compose down
 - Nginx (`nginx:alpine`)
 - Docker
 - Docker Compose
+
+## Назначение
+
+Тестовое задание для Effective Mobile.
+Бехери Ахмед
+DevOps / Backend разработчик
