@@ -1,0 +1,55 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+      - forTest
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: backend/go.mod
+
+      - name: Build backend
+        working-directory: backend
+        run: go build .
+
+      - name: Create .env
+        run: cp .env.example .env
+
+      - name: Validate compose
+        run: docker compose config
+
+      - name: Start stack
+        run: docker compose up -d --build
+
+      - name: Wait for services
+        run: sleep 10
+
+      - name: Check main endpoint
+        run: |
+          RESPONSE=$(curl -s http://localhost/)
+          test "$RESPONSE" = "Hello from Effective Mobile!"
+
+      - name: Show compose status
+        run: docker compose ps
+
+      - name: Show logs on failure
+        if: failure()
+        run: docker compose logs
+
+      - name: Stop stack
+        if: always()
+
+        # Use -v to remove named volumes declared in the compose file, which are not removed by default when using docker compose down
+        run: docker compose down -v

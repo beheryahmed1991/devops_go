@@ -4,6 +4,7 @@
 ![Go](https://img.shields.io/badge/Go-1.24-00ADD8)
 ![Nginx](https://img.shields.io/badge/Nginx-alpine-009639)
 ![Docker%20Compose](https://img.shields.io/badge/Docker%20Compose-available-2496ED)
+[![CI](https://github.com/beheryahmed1991/devops_go/actions/workflows/ci.yml/badge.svg)](https://github.com/beheryahmed1991/devops_go/actions/workflows/ci.yml)
 
 Минимальная инфраструктура: Nginx reverse proxy + Go backend в Docker Compose
 
